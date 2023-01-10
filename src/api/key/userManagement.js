@@ -1,0 +1,3 @@
+export const USERLIST_KEY = 'USERLIST_KEY';
+
+export const SUBSCRIBE_KEY = 'SUBSCRIBE_KEY';

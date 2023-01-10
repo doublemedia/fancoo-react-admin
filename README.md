@@ -1,70 +1,126 @@
-# Getting Started with Create React App
+## USING YARN (Recommend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- yarn install
+- yarn start
 
-## Available Scripts
+## USING NPM
 
-In the project directory, you can run:
+- npm i OR npm i --legacy-peer-deps
+- npm start
 
-### `npm start`
+###### 컴포넌트 사용방법
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## UserSelectBox 셀렉트박스
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# 옵션
 
-### `npm test`
+- labelText // 상단문자표시
+- widthSize // width 길이
+- filterRole // default값 (필수)
+- optionsRole // itemsObject (필수)
+- onFilterRole // 클릭이벤트 (필수)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  <UserSelectBox
+      labelText='검색어'
+      widthSize={250}
+      filterRole={searchRole}
+      optionsRole={searchItems}
+      onFilterRole={handleSearchRole}
+  />
 
-### `npm run build`
+## UserTextBox 텍스트박스
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 옵션
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- searchIcon // 돋보기마크표시
+- placeholder // 상단문자표시
+- widthSize // width 길이
+- isFiltered // 클리어버튼표시
+- filterName // default 값 (필수)
+- onFilterName // 이벤트 (필수)
+- onResetFilter // isFiltered사용시 클리어이벤트
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  <UserTextBox
+    searchIcon
+    placeholder="검색어입력"
+    widthSize={450}
+    isFiltered={isFiltered}
+    filterName={searchName} 
+    onFilterName={handleSearchName}
+    onResetFilter={handleResetFilter}
+  />
 
-### `npm run eject`
+## DataGrid 그리드
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# 옵션
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- LoadingOverlay // 데이터그리드 내 로딩바
+- hideFooter // MUI제공 푸터 비표시 (필수)
+- hideFooterPagination // MUI제공 페이징비표시 (필수)
+- hideFooterSelectedRowCount // MUI제공 건수표시비표시 (필수)
+- disableSelectionOnClick // 셀선택이벤트 끄기
+- loading // 로딩중표시
+- getRowId // 데이터키 (id,num) (필수)
+- experimentalFeatures // 컬럼그룹핑사용
+- rows // 그리드데이터 (필수)
+- columns // 그리드헤더 (필수)
+- columnGroupingModel // 그룹핑 헤더
+- onCellClick // 셀선택시 이벤트
+  <DataGrid
+  components={{
+    LoadingOverlay: LinearProgress,
+  }}
+  hideFooter
+  hideFooterPagination
+  hideFooterSelectedRowCount
+  disableSelectionOnClick
+  loading={loadingFlg}
+  getRowId={(row) => row?.num}
+  experimentalFeatures={{ columnGrouping: true }}
+  rows={data?.data}
+  columns={columns}
+  columnGroupingModel={groupColumns}
+  onCellClick={handleOnCellClick}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## CustomPagination
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# 옵션
 
-## Learn More
+- limit // limit useState (필수)
+- offset // offset useState (필수)
+- setOffset // setOffset useState (필수)
+- currentpage // 서버에서오는 page(필수)
+- lastPage // 마지막페이지수 (필수)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  <CustomPagination
+      limit={limit}
+      offset={offset}
+      setOffset={setOffset}
+      currentpage={data?.page.page}
+      lastPage={data?.page.lastPage}
+  />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## CustomGridHeader
 
-### Code Splitting
+# 옵션
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- limit // limit useState(필수)
+- setLimit // setLimit useState(필수)
+- setOffset // setOffset useState (필수)
+- totalCnt // 총데이터수 (필수)
 
-### Analyzing the Bundle Size
+  <CustomGridHeader 
+      limit={limit}
+      setLimit={setLimit}
+      setOffset = {setOffset}
+      totalCnt={data?.page?.total}
+  />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+###### 날짜 Formatter
 
-### Making a Progressive Web App
+## DateManger
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# Ex
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- DateManager.convert(날짜,변환타입)
+- 변환타입 'yyyy-mm-dd'/'yyyy/mm/dd'
