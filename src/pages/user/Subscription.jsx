@@ -221,7 +221,6 @@ export default function Subscription() {
   // 검색 이벤트
   const searchBtn = () => {
     setLoadingFlg(true);
-    // params = {};
     params.offset= offset;
     params.limit= limit.value;
     params.date_type = dateRole.value;

@@ -34,21 +34,16 @@ instance.interceptors.request.use((config)=> {
 })
 
 instance.interceptors.response.use(
-    (res) => {
-        console.log(res)
-        return {...res}},
+    (res) => ({...res}),
 
     async (error) => {
         const {config, response} = error;
-        console.log(response);
         if(response === undefined) {
             return Promise.reject(error);
         }
 
         const originalRequest = config;
-        console.log('response',response.status);
         if(response.status === 401) {
-            console.log('401');
             const refreshToken = Cookies.get(REFRESH_TOKEN);
             const res = await instance.post(REFRESH, {
                 refresh_token: refreshToken,

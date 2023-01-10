@@ -19,27 +19,19 @@ import AlertDialog from 'src/custom-components/dialog/AlertDialog';
 import { USERLIST } from 'src/api/end-point/userManagement';
 import instance from 'src/api/api';
 
-// ----------------------------------------------------------------------
-
-// User.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
-
-// ----------------------------------------------------------------------
-
 export default function User() {
-  let params = {
+  const params = useMemo(()=>({
     profile_id: '',
     offset: 0,
-    limit: 100,
+    limit: 20,
     date_type : 'register',
     sort: 'register',
     adult_yn: '',
     status: '',
     end_date: '',
     start_date: '',
-  };
+  }),[]);
 
- // const [params, setparams] = useState(paramsT);
-  
   const [open, setOpen] = useState(false);
 
   // 페이지 선택건수
@@ -102,7 +94,7 @@ export default function User() {
   ]),[])
   
   // 회원목록 조회
-  const {data, refetch, isFetching, isLoading} = useQuery(
+  const {data, refetch, isLoading} = useQuery(
       [USERLIST_KEY],
       async () => await instance.get(USERLIST,{params}),
       {
@@ -128,9 +120,6 @@ export default function User() {
     }
   )
 
-
- 
-  
   useEffect(()=> {
     searchBtn();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -183,8 +172,6 @@ export default function User() {
   // 검색 이벤트
   const searchBtn = () => {
     setLoadingFlg(true);
-    console.log(limit);
-    params = {};
     params.offset= offset;
     params.limit= limit.value;
     params.date_type = dateRole.value;
@@ -199,7 +186,6 @@ export default function User() {
       params.end_date = '';
       params.start_date = '';
     }
-    console.log(params);
     refetch();
   }
 

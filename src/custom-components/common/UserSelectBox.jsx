@@ -1,17 +1,6 @@
 import { MenuItem, TextField } from "@mui/material";
 import { memo } from "react";
 
-
-// UserSelectBox.propTypes = {
-//   isFiltered: PropTypes.bool,
-//   filterName: PropTypes.string,
-//   filterRole: PropTypes.string,
-//   onFilterName: PropTypes.func,
-//   onFilterRole: PropTypes.func,
-//   onResetFilter: PropTypes.func,
-//   optionsRole: PropTypes.arrayOf(PropTypes.string),
-// };
-
 function UserSelectBox({
   filterRole,
   optionsRole,
