@@ -3,8 +3,8 @@ import { Box, Button, Card,Container, Stack, TextField } from '@mui/material';
 // layouts
 // components
 import { useQuery } from 'react-query';
-import { USERLIST_KEY } from 'src/api/key/userManagement';
-import {  useEffect, useMemo, useState } from 'react';
+import { BLOCKLIST_KEY } from 'src/api/key/userManagement';
+import {  memo, useEffect, useMemo, useState } from 'react';
 import CustomBreadcrumbs from 'src/custom-components/custom-breadcrumbs/CustomBreadcrumbs';
 import UserSelectBox from 'src/custom-components/common/UserSelectBox';
 // import { TablePaginationCustom } from 'src/components/table';
@@ -12,21 +12,16 @@ import UserTextBox from 'src/custom-components/common/UserTextBox';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
-import UserGrid from 'src/custom-components/user/UserGrid';
 import DateManager from 'src/utils/DateManager';
 import { DEFAULT_OFFSET, DEFAULT_PAGE_CNT } from 'src/config/pageSetting';
-import AlertDialog from 'src/custom-components/dialog/AlertDialog';
-import { USERLIST } from 'src/api/end-point/userManagement';
+import { BLOCKLIST } from 'src/api/end-point/userManagement';
 import instance from 'src/api/api';
-
+import BlockGrid from 'src/custom-components/user/BlockGrid';
+import { useRecoilValue } from 'recoil';
+import searchTextAtom from 'src/store/searchText/searchTextAtom';
 // ----------------------------------------------------------------------
 
-// Block.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
-
-// ----------------------------------------------------------------------
-
-export default function Block() {
-  let params = {
+let params = {
     profile_id: '',
     offset: 0,
     limit: 20,
@@ -38,8 +33,10 @@ export default function Block() {
     start_date: '',
   };
 
-  const [open, setOpen] = useState(false);
+// ----------------------------------------------------------------------
+function Block() {
 
+  const setSearch = useRecoilValue(searchTextAtom);
   // 페이지 선택건수
   const [limit, setLimit] = useState(DEFAULT_PAGE_CNT);
 
@@ -47,7 +44,7 @@ export default function Block() {
 
   const [loadingFlg, setLoadingFlg] = useState(false);
 
-  const [searchName, setSearchName] = useState('');
+  const [searchName, setSearchName] = useState(setSearch);
 
   const [searchRole, setSearchRole] = useState({value:'profile_id' ,name: '프로필아이디'});
 
@@ -76,7 +73,7 @@ export default function Block() {
   const [periodRole, setPeriodRole] = useState({value:'A', name:"전체"});
 
   const periodItems = useMemo(()=> ([
-    {value:' ' ,name: '전체'},
+    {value:'A' ,name: '전체'},
     {value:'0' ,name: '없음'},
     {value:'3' ,name: '3일'},
     {value:'7' ,name: '7일'},
@@ -84,20 +81,27 @@ export default function Block() {
     {value:'36500' ,name: '영구정지'},
   ]),[]);
 
-  const [sortRole, setSortRole] = useState({value:'register', name:"가입일"});
+  const [adjustRole, setAdjustRole] = useState({value:'A', name:"전체"});
+
+  const adjustItems = useMemo(()=> ([
+    {value: 'A', name: '전체'},
+    {value: 'POST', name: '포스팅'},
+    {value: 'COMMENT', name: '댓글'},
+    {value: 'REPLY', name: '답글'},
+  ]),[])
+  
+  const [sortRole, setSortRole] = useState({value:'register', name:"제재일"});
 
   const sortItems = useMemo(()=> ([
-    {value: 'register', name: '가입일'},
-    {value: 'buy', name: '결제금액'},
-    {value: 'buy-count', name: '보유하트'},
-    {value: 'refund', name: '사용하트'},
-
+    {value: 'register', name: '제재일'},
+    {value: 'begin', name: '제재시작일'},
+    {value: 'expire', name: '기간'},
   ]),[])
   
   // 회원목록 조회
-  const {data, refetch, isLoading, isFetching} = useQuery(
-      [USERLIST_KEY],
-      async () => await instance.get(USERLIST,{params}),
+  const {data, refetch, isLoading} = useQuery(
+      [BLOCKLIST_KEY],
+      async () => await instance.get(BLOCKLIST,{params}),
       {
         refetchOnWindowFocus: false,
         retry: 0,
@@ -153,6 +157,10 @@ export default function Block() {
     setPeriodRole({value: e.target.value, name: e.target.name});
   }
 
+  const handleAdjustRole = (e) => {
+    setAdjustRole({value: e.target.value, name: e.target.name});
+  }
+
   const handleSortRole = (e) => {
     setSortRole({value: e.target.value, name: e.target.name});
   }
@@ -163,10 +171,10 @@ export default function Block() {
     setDateRole({value:'register' ,name: '가입일'});
     setReportRole({value:'A', name:'전체'})
     setPeriodRole({value:'A', name:"전체"});
-    setSortRole({value:'register', name:"가입일"});
+    setAdjustRole({value:'A', name:"전체"});
+    setSortRole({value:'register',name:'제재일'});
     setValue([null, null]);
     setSearchName('');
-    setOpen(true);
     
   }
   // 검색 이벤트
@@ -193,7 +201,6 @@ export default function Block() {
   const [value, setValue] = useState([null, null]);
 
   return (
-    <>
     <Container maxWidth={false} sx={{ height: 1 } }>
         <CustomBreadcrumbs
           heading="제제목록"
@@ -215,7 +222,7 @@ export default function Block() {
           >
             <UserSelectBox
                 labelText='검색어'
-                widthSize={250}
+                widthSize={150}
                 filterRole={searchRole}
                 optionsRole={searchItems}
                 onFilterRole={handleSearchRole}
@@ -223,7 +230,7 @@ export default function Block() {
             <UserTextBox
                 searchIcon
                 placeholder="검색어입력"
-                widthSize={450}
+                widthSize={250}
                 isFiltered={isFiltered}
                 filterName={searchName}
                 onFilterName={handleSearchName}
@@ -247,40 +254,47 @@ export default function Block() {
                 }}
                 renderInput={(startProps, endProps) => (
                   <>
-                    <TextField
-                    {...startProps} />
+                    <TextField  {...startProps} sx={{ mixWidth: { sm: 150 }}}
+                    />
                     <Box sx={{ mx: 2 }}> ~ </Box>
-                    <TextField {...endProps} />
+                    <TextField {...endProps} sx={{ mixWidth: { sm: 150 }}}/>
                   </>
                 )}
               />
             </LocalizationProvider>
             <UserSelectBox
-                labelText='성인여부'
+                labelText='제재항목'
                 widthSize={100}
                 filterRole={reportRole}
                 optionsRole={reportItems}
                 onFilterRole={handleAdultRole}
             />
             <UserSelectBox
-                labelText='상태'
+                labelText='기간'
                 widthSize={100}
                 filterRole={periodRole}
                 optionsRole={periodItems}
                 onFilterRole={handleStatusRole}
             />
             <UserSelectBox
-                labelText='정렬'
+                labelText='적용대상'
+                widthSize={150}
+                filterRole={adjustRole}
+                optionsRole={adjustItems}
+                onFilterRole={handleAdjustRole}
+            />
+            <UserSelectBox
+                labelText='제제일'
                 widthSize={150}
                 filterRole={sortRole}
                 optionsRole={sortItems}
                 onFilterRole={handleSortRole}
             />
-            <Button size="large" color="error"variant="contained" onClick={()=> initBtn()}>초기화</Button>
-            <Button size="large" color="success" variant="contained" onClick={()=> searchBtn()}>검색</Button>
+            <Button sx={{fontSize: 10}} size="large" color="error"variant="contained" onClick={()=> initBtn()}>리셋</Button>
+            <Button sx={{fontSize: 10}} size="large" color="success" variant="contained" onClick={()=> searchBtn()}>검색</Button>
           </Stack>
           {!isLoading &&(
-            <UserGrid
+            <BlockGrid
               data={data?.data}
               limit={limit}
               setLimit={setLimit}
@@ -292,13 +306,7 @@ export default function Block() {
         </Card>
          
       </Container>
-      {open && (
-        <AlertDialog
-          open={open}
-          setOpen={setOpen}
-          msg='리셋'
-         />
-      )}
-      </>
   );
 }
+
+export default memo(Block);

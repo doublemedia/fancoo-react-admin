@@ -1,30 +1,12 @@
 import { Box, Button, LinearProgress } from "@mui/material";
 import { DataGrid} from "@mui/x-data-grid";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import { useSetRecoilState } from "recoil";
 import CustomPagination from "src/custom-components/common/CustomPagination";
+import ReportDialog from "src/custom-components/dialog/report/ReportDialog";
+import searchTextAtom from "src/store/searchText/searchTextAtom";
 import CustomGridHeader from "../common/CustomGridHeader";
-
-// function CustomPagination(totalCnt) {
-//     const apiRef = useGridApiContext();
-//     const page = useGridSelector(apiRef, gridPageSelector);
-//     // const pageCount = useGridSelector(apiRef, gridPageCountSelector);
-//     const handleChange = (e,value) => {
-//         console.log(e,value)
-//         console.log('value',value)
-//     }
-//     const pageCount = 100
-//         return (
-//             <Pagination
-//                 color="primary"
-//                 count={pageCount}   // 총페이지수
-//                 page={page + 1} 
-//                 onChange={handleChange}
-//                 // onChange={(event, value) => apiRef.current.setPage(value - 1)}
-//             />
-//         );
-//     }
-
 
 export default function UserGrid({
     data,
@@ -34,13 +16,19 @@ export default function UserGrid({
     offset,
     setOffset,
 }) {
+    const setSearchText = useSetRecoilState(searchTextAtom);
+    const [open, setOpen] = useState(false);
+
     // 제제 내역이동
     const reportEvent = (p) => {
         const reportBtn = () => {
-            console.log('ddd');
+           // setSearchText(searchName);
+            setSearchText(p.row.profile_id);
+            navigate('/user/block');
+        //    setOpen(true);
         }
         return(
-        <Button size="small" color="success"variant="contained" onClick={()=> reportBtn()}>보기</Button>
+            <Button size="small" color="success"variant="contained" onClick={()=> reportBtn()}>보기</Button>
         )
     }
 
@@ -64,6 +52,7 @@ export default function UserGrid({
         { field: 'reg_date', headerName: '가입일', width: 150, headerClassName: 'my-group' , sortable: false },
         { field: 'ip', headerName: '접속IP', width: 150, headerClassName: 'my-group' , sortable: false },
         { field: 'report_his', headerName: '제제내역', width: 100, headerClassName: 'my-group' , sortable: false, renderCell: reportEvent, },
+     // eslint-disable-next-line react-hooks/exhaustive-deps
      ]),[])
 
     const groupColumns = useMemo(()=> ([
@@ -126,6 +115,7 @@ export default function UserGrid({
     };
 
     return (
+        <>
         <Box>
             <CustomGridHeader 
                 limit={limit}
@@ -171,5 +161,12 @@ export default function UserGrid({
                 lastPage = {data?.page.lastPage}
             />
         </Box>
+
+        {open && (    
+            <ReportDialog
+                open={open}
+                setOpen={setOpen}
+            />)}
+        </>
     )
 }

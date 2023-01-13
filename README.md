@@ -15,10 +15,12 @@
 # 옵션
 
 - labelText // 상단문자표시
-- widthSize // width 길이
+- widthSize // width 길이 // 200
+- variant // height 길이 // filled,standard
 - filterRole // default값 (필수)
 - optionsRole // itemsObject (필수)
 - onFilterRole // 클릭이벤트 (필수)
+- disabled // 비활성화
 
   <UserSelectBox
       labelText='검색어'
@@ -26,6 +28,7 @@
       filterRole={searchRole}
       optionsRole={searchItems}
       onFilterRole={handleSearchRole}
+      disabled
   />
 
 ## UserTextBox 텍스트박스

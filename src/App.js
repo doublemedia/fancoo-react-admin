@@ -9,12 +9,13 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // ----------------------------------------------------------------------
 
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 // routes
 import { RecoilRoot} from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { Suspense } from 'react';
 import Router from './routes';
 // theme
 import ThemeProvider from './theme';
@@ -46,6 +47,7 @@ import ScrollToTop from './components/scroll-to-top';
 export default function App() {
   return (
     <RecoilRoot>
+    <Suspense fallback={<Navigate to="/404" replace />}>
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
         <SettingsProvider>
@@ -66,7 +68,9 @@ export default function App() {
         </SettingsProvider>
       </HelmetProvider>
       <ReactQueryDevtools initialIsOpen={false} />
+      
     </QueryClientProvider>
+    </Suspense>
     </RecoilRoot>
   );
 }

@@ -35,21 +35,21 @@ export default function CustomGridHeader ({
             //     onFilterRole={handlePagingRole}
             // />
         // </Stack>
-        <Grid container spacing={11} justifyContent="space-between" alignItems="center" >
-        <Grid item xs={1} p={1} >
-            <Typography variant="subtitle2" mt={1}>
-                &nbsp; 총 {totalCnt} 건
-            </Typography>
-        </Grid>
-        <Grid item xs={1} p={1} >
-                <UserSelectBox
-                    size='small'
-                    widthSize={100}
-                    filterRole={limit}
-                    optionsRole={PAGE_CNT_LIST}
-                    onFilterRole={handlePagingRole}
-                />
-        </Grid>
+        <Grid container spacing={7} justifyContent="space-between" alignItems="center" >
+            <Grid item xs={2} p={1} >
+                <Typography variant="subtitle2" mt={1}>
+                    &nbsp; 총 {totalCnt} 건
+                </Typography>
+            </Grid>
+            <Grid item xs={1} p={1} justifyContent="flex-end">
+                    <UserSelectBox
+                        size='small'
+                        widthSize={140}
+                        filterRole={limit}
+                        optionsRole={PAGE_CNT_LIST}
+                        onFilterRole={handlePagingRole}
+                    />
+            </Grid>
         </Grid>
     )
 }

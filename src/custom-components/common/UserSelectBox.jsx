@@ -7,24 +7,34 @@ function UserSelectBox({
   onFilterRole,
   labelText,
   widthSize,
-  size
+  variant,
+  size,
+  disabled
 }) {
     // default
     if(widthSize===undefined) {
         widthSize = 240;
     }
     if(size===undefined) {
-      size = 'large'
+      size = 'large';
+    }
+    if(variant===undefined) {
+      variant = 'filled';
+    }
+    if(disabled===undefined) {
+      disabled=false;
     }
     return(
     <TextField
         fullWidth
         size={size}
         select
+        variant={variant}
         label={labelText}
         name={filterRole.name}
         value={filterRole.value}
         onChange={onFilterRole}
+        disabled={disabled}
         SelectProps={{
           MenuProps: {
             PaperProps: {

@@ -5,7 +5,7 @@ import GuestGuard from 'src/auth/GuestGuard';
 import AuthGuard from 'src/auth/AuthGuard';
 import { useRecoilValue } from 'recoil';
 import menuAtom from 'src/store/atom/menuAtom';
-import authMenuAtom from 'src/store/atom/authMenuAtom';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useMemo } from 'react';
 import CompactLayout from '../layouts/compact';
 import DashboardLayout from '../layouts/dashboard';
@@ -58,9 +58,11 @@ export default function Router() {
     {
       path: '/user',
       element: (
-        <AuthGuard>
-          <DashboardLayout />
-        </AuthGuard>
+        <ErrorBoundary FallbackComponent = {<Navigate to="/404" replace />}>
+          {/* <AuthGuard> */}
+            <DashboardLayout />
+          {/* </AuthGuard> */}
+        </ErrorBoundary>
       ),
       children: [
         { element: <Navigate to="/user/user" replace />, index: true },

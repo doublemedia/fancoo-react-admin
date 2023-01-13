@@ -1,3 +1,5 @@
 export const USERLIST_KEY = 'USERLIST_KEY';
 
 export const SUBSCRIBE_KEY = 'SUBSCRIBE_KEY';
+
+export const BLOCKLIST_KEY ='BLOCKLIST_KEY';

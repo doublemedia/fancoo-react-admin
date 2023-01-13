@@ -98,7 +98,7 @@ export default function User() {
       [USERLIST_KEY],
       async () => await instance.get(USERLIST,{params}),
       {
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: true,
         retry: 0,
         onSuccess: (res)=> {
           if(res.data?.data !== null) {
@@ -215,7 +215,7 @@ const [value, setValue] = useState([null, null]);
           >
             <UserSelectBox
                 labelText='검색어'
-                widthSize={250}
+                widthSize={200}
                 filterRole={searchRole}
                 optionsRole={searchItems}
                 onFilterRole={handleSearchRole}
@@ -223,7 +223,7 @@ const [value, setValue] = useState([null, null]);
             <UserTextBox
                 searchIcon
                 placeholder="검색어입력"
-                widthSize={450}
+                widthSize={300}
                 isFiltered={isFiltered}
                 filterName={searchName}
                 onFilterName={handleSearchName}
@@ -271,13 +271,13 @@ const [value, setValue] = useState([null, null]);
             />
             <UserSelectBox
                 labelText='정렬'
-                widthSize={150}
+                widthSize={125}
                 filterRole={sortRole}
                 optionsRole={sortItems}
                 onFilterRole={handleSortRole}
             />
-            <Button size="large" color="error"variant="contained" onClick={()=> initBtn()}>초기화</Button>
-            <Button size="large" color="success" variant="contained" onClick={()=> searchBtn()}>검색</Button>
+            <Button sx={{fontSize: 10}} size="large" color="error"variant="contained" onClick={()=> initBtn()}>리셋</Button>
+            <Button sx={{fontSize: 10}} size="large" color="success" variant="contained" onClick={()=> searchBtn()}>검색</Button>
           </Stack>
           {!isLoading &&(
             <UserGrid
