@@ -16,10 +16,9 @@ import DateManager from 'src/utils/DateManager';
 import { DEFAULT_OFFSET, DEFAULT_PAGE_CNT } from 'src/config/pageSetting';
 import { BLOCKLIST } from 'src/api/end-point/userManagement';
 import instance from 'src/api/api';
-import BlockGrid from 'src/custom-components/user/BlockGrid';
+// import BlockGrid from 'src/custom-components/user/BlockGrid';
 import { useRecoilValue } from 'recoil';
 import searchTextAtom from 'src/store/searchText/searchTextAtom';
-import UserTextBox2 from 'src/custom-components/common/UserTextBox2';
 // ----------------------------------------------------------------------
 
 let params = {
@@ -33,6 +32,48 @@ let params = {
     end_date: '',
     start_date: '',
   };
+
+  
+  const searchItems =  [
+    {value:'profile_id' ,name: '프로필아이디'},
+    {value:'nick' ,name: '닉네임'},
+    {value:'category' ,name: '분류'},
+  ];
+  console.log('원타임');
+  
+  const dateItems = [
+    {value:'register' ,name: '제제일'},
+    {value:'begin' ,name: '제제시작일'},
+  ];
+
+ const reportItems = [
+    {value:'A' ,name: '전체'},
+    {value:'warning' ,name: '경고'},
+    {value:'restriction' ,name: '이용제한'},
+    {value:'ban' ,name: '이용정지'},
+  ];
+
+  const periodItems = [
+    {value:'A' ,name: '전체'},
+    {value:'0' ,name: '없음'},
+    {value:'3' ,name: '3일'},
+    {value:'7' ,name: '7일'},
+    {value:'30' ,name: '30일'},
+    {value:'36500' ,name: '영구정지'},
+  ];
+
+    const adjustItems = [
+    {value: 'A', name: '전체'},
+    {value: 'POST', name: '포스팅'},
+    {value: 'COMMENT', name: '댓글'},
+    {value: 'REPLY', name: '답글'},
+  ];
+  
+    const sortItems = [
+    {value: 'register', name: '제재일'},
+    {value: 'begin', name: '제재시작일'},
+    {value: 'expire', name: '기간'},
+  ];
 
 // ----------------------------------------------------------------------
 function Block() {
@@ -49,55 +90,22 @@ function Block() {
 
   const [searchRole, setSearchRole] = useState({value:'profile_id' ,name: '프로필아이디'});
 
-  const searchItems = useMemo(()=> ([
-    {value:'profile_id' ,name: '프로필아이디'},
-    {value:'nick' ,name: '닉네임'},
-    {value:'category' ,name: '분류'},
-  ]),[]);
 
   const [dateRole, setDateRole] = useState({value:'register' ,name: '가입일'});
 
-  const dateItems = useMemo(()=> ([
-    {value:'register' ,name: '제제일'},
-    {value:'begin' ,name: '제제시작일'},
-  ]),[]);
-
   const [reportRole, setReportRole] = useState({value:'A', name:'전체'})
 
-  const reportItems = useMemo(()=> ([
-    {value:'A' ,name: '전체'},
-    {value:'warning' ,name: '경고'},
-    {value:'restriction' ,name: '이용제한'},
-    {value:'ban' ,name: '이용정지'},
-  ]),[]);
+ 
 
   const [periodRole, setPeriodRole] = useState({value:'A', name:"전체"});
 
-  const periodItems = useMemo(()=> ([
-    {value:'A' ,name: '전체'},
-    {value:'0' ,name: '없음'},
-    {value:'3' ,name: '3일'},
-    {value:'7' ,name: '7일'},
-    {value:'30' ,name: '30일'},
-    {value:'36500' ,name: '영구정지'},
-  ]),[]);
 
   const [adjustRole, setAdjustRole] = useState({value:'A', name:"전체"});
 
-  const adjustItems = useMemo(()=> ([
-    {value: 'A', name: '전체'},
-    {value: 'POST', name: '포스팅'},
-    {value: 'COMMENT', name: '댓글'},
-    {value: 'REPLY', name: '답글'},
-  ]),[])
-  
+
   const [sortRole, setSortRole] = useState({value:'register', name:"제재일"});
 
-  const sortItems = useMemo(()=> ([
-    {value: 'register', name: '제재일'},
-    {value: 'begin', name: '제재시작일'},
-    {value: 'expire', name: '기간'},
-  ]),[])
+
   
   // 회원목록 조회
   const {data, refetch, isLoading} = useQuery(
@@ -134,9 +142,9 @@ function Block() {
   // clear버튼 표시
   const isFiltered = searchName !== '' ;
   // 입력이벤트
-  // const handleSearchName = (e) => {
-  //   setSearchName(e.target.value);
-  // };
+  const handleSearchName = (e) => {
+    setSearchName(e.target.value);
+  };
 
   const handleResetFilter = () => {
     setSearchName('');
@@ -165,8 +173,6 @@ function Block() {
   const handleSortRole = (e) => {
     setSortRole({value: e.target.value, name: e.target.name});
   }
-
-  const [searchName1, setSearchName1] = useState('');
 
   // 초기화 이벤트
   const initBtn = () => {
@@ -236,16 +242,8 @@ function Block() {
                 widthSize={250}
                 isFiltered={isFiltered}
                 filterName={searchName}
-                onFilterName={setSearchName}
-                // onFilterName={handleSearchName}
+                onFilterName={handleSearchName}
                 onResetFilter={handleResetFilter}
-             />
-
-             <UserTextBox2
-                placeholder="검색어입력2"
-                widthSize={250}
-                filterName={searchName1}
-                onFilterName={setSearchName1}
              />
             <UserSelectBox
                 labelText='일자'
@@ -304,7 +302,7 @@ function Block() {
             <Button sx={{fontSize: 10}} size="large" color="error"variant="contained" onClick={()=> initBtn()}>리셋</Button>
             <Button sx={{fontSize: 10}} size="large" color="success" variant="contained" onClick={()=> searchBtn()}>검색</Button>
           </Stack>
-          {!isLoading &&(
+          {/* {!isLoading &&(
             <BlockGrid
               data={data?.data}
               limit={limit}
@@ -313,7 +311,7 @@ function Block() {
               setOffset={setOffset}
               loadingFlg={loadingFlg}
             />)
-          }
+          } */}
         </Card>
          
       </Container>

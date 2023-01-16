@@ -14,18 +14,11 @@ const Loadable = (Component) => (props) =>
 // ----------------------------------------------------------------------
 
 export const LoginPage = Loadable(lazy(() => import('../pages/LoginPage')));
-
-export const PageOne = Loadable(lazy(() => import('../pages/PageOne')));
-export const PageTwo = Loadable(lazy(() => import('../pages/PageTwo')));
-export const PageThree = Loadable(lazy(() => import('../pages/PageThree')));
-export const PageFour = Loadable(lazy(() => import('../pages/PageFour')));
-export const PageFive = Loadable(lazy(() => import('../pages/PageFive')));
-export const PageSix = Loadable(lazy(() => import('../pages/PageSix')));
-
 export const Page404 = Loadable(lazy(() => import('../pages/Page404')));
 
 export const User = Loadable(lazy(() => import('../pages/user/User')));
 export const Block = Loadable(lazy(() => import('../pages/user/Block')));
 export const Subscription = Loadable(lazy(() => import('../pages/user/Subscription')));
+export const Buy = Loadable(lazy(()=> import('../pages/user/Buy')));
 
 export const Test = Loadable(lazy(() => import('../pages/test/test')));

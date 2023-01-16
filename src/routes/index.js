@@ -14,17 +14,12 @@ import { PATH_AFTER_LOGIN } from '../config-global';
 //
 import {
   Page404,
-  PageOne,
-  PageTwo,
-  PageSix,
-  PageFour,
-  PageFive,
   LoginPage,
-  PageThree,
   User,
   Block,
   Subscription,
   Test,
+  Buy
 } from './elements';
 // import User from 'src/pages/user/user';
 
@@ -68,6 +63,7 @@ export default function Router() {
         { element: <Navigate to="/user/user" replace />, index: true },
         { path: 'user', element: <User /> },
         { path: 'block', element: <Block /> },
+        { path: 'buy', element: <Buy /> },
         { path: 'subscription', element: <Subscription /> },
       ],
     },
@@ -81,27 +77,6 @@ export default function Router() {
       children: [
         { element: <Navigate to="/test/test" replace />, index: true },
         { path: 'test', element: <Test /> },
-      ],
-    },
-    {
-      path: '/dashboard',
-      element: (
-          <DashboardLayout />
-      ),
-      children: [
-        { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
-        { path: 'one', element: <PageOne /> },
-        { path: 'two', element: <PageTwo /> },
-        { path: 'three', element: <PageThree /> },
-        {
-          path: 'user',
-          children: [
-            { element: <Navigate to="/dashboard/user/four" replace />, index: true },
-            { path: 'four', element: <PageFour /> },
-            { path: 'five', element: <PageFive /> },
-            { path: 'six', element: <PageSix /> },
-          ],
-        },
       ],
     },
     {
