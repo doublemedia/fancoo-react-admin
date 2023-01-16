@@ -18,7 +18,6 @@ function UserTextBox({
   placeholder,
   widthSize,
 }) {
-  console.log('test',filterName);
     // default
     if(widthSize===undefined) {
         widthSize = 240;
@@ -30,7 +29,6 @@ function UserTextBox({
       placeholder = ''
     }
     const change = (e) => {
-      console.log(e);
       onFilterName(e.target.value);
     }
 

@@ -28,6 +28,7 @@ function Buy() {
                      <Searchbar />
                 </Stack>
             </Card>
+            
         </Container>
        
     )

@@ -12,19 +12,15 @@ export default function CustomPagination ({
     const [page, setPage] = useState(1);
     
      useEffect(()=> {
-        console.log('currentpage',currentpage);
         setPage(currentpage);
     },[currentpage])
 
     const handleChange = (event, value) => {
-        console.log(value)
-        console.log(limit.value);
         if(value===1) {
             setOffset(0);
         }else {
             setOffset((value-1)*limit.value);
         }
-        console.log(value);
         setPage(value);
     };
     return (

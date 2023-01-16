@@ -70,9 +70,9 @@ export default function Router() {
     {
       path: '/test',
       element: (
-        <AuthGuard>
+        // <AuthGuard>
           <DashboardLayout />
-        </AuthGuard>
+        // </AuthGuard>
       ),
       children: [
         { element: <Navigate to="/test/test" replace />, index: true },

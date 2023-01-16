@@ -117,10 +117,8 @@ function Block() {
             res.data.data = [];
           }
           setLoadingFlg(false);
-          console.log('res',res);
         },
         onError: (e) => {
-          console.log('e', e);
           setLoadingFlg(false);
         }
     }

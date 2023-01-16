@@ -3,7 +3,7 @@ import { adultType, buyStatus, dateType, itemType, searhType } from "src/config/
 import UserSelectBox from "src/custom-components/common/UserSelectBox";
 import UserTextBox from "src/custom-components/common/UserTextBox";
 
-const SearchBar = () => {
+function SearchBar () {
 
     const [searchName, setSearchName] = useState('');
 

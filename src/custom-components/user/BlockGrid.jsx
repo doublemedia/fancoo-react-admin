@@ -18,7 +18,6 @@ export default function BlockGrid({
     setOffset,
 }) {
 
-    console.log('dfd');
     const [open, setOpen] = useState(false);
     const [memoOpen , setMemoOpen] = useState(false);
     const [msg, setMsg] = useState('');

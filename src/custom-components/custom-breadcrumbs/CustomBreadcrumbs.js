@@ -25,7 +25,6 @@ export default function CustomBreadcrumbs({
   ...other
 }) {
   const lastLink = links[links.length - 1].name;
-
   return (
     <Box sx={{ mb: 5, ...sx }}>
       <Stack direction="row" alignItems="center">
