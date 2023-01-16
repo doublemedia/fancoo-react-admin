@@ -1,5 +1,5 @@
 import { MenuItem, TextField } from "@mui/material";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
 
 function UserSelectBox({
@@ -12,6 +12,7 @@ function UserSelectBox({
   size,
   disabled
 }) {
+  console.log('dfdf123',filterRole);
     // default
     if(widthSize===undefined) {
         widthSize = 240;
@@ -25,6 +26,14 @@ function UserSelectBox({
     if(disabled===undefined) {
       disabled=false;
     }
+
+    const onChange = useCallback(
+    e => {
+      onFilterRole({value:e.target.value, name: e.target.name});
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filterRole]
+  );
     return(
     <TextField
         fullWidth
@@ -34,7 +43,7 @@ function UserSelectBox({
         label={labelText}
         name={filterRole.name}
         value={filterRole.value}
-        onChange={onFilterRole}
+        onChange={onChange}
         disabled={disabled}
         SelectProps={{
           MenuProps: {

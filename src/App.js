@@ -22,7 +22,7 @@ import ThemeProvider from './theme';
 // locales
 import ThemeLocalization from './locales';
 // components
-import SnackbarProvider from './components/snackbar';
+// import SnackbarProvider from './components/snackbar';
 import { ThemeSettings, SettingsProvider } from './components/settings';
 import { MotionLazyContainer } from './components/animate';
 import ScrollToTop from './components/scroll-to-top';
@@ -58,9 +58,9 @@ export default function App() {
               <ThemeProvider>
                 <ThemeSettings>
                   <ThemeLocalization>
-                    <SnackbarProvider>
+                    {/* <SnackbarProvider> */}
                       <Router />
-                    </SnackbarProvider>
+                    {/* </SnackbarProvider> */}
                   </ThemeLocalization>
                 </ThemeSettings>
               </ThemeProvider>

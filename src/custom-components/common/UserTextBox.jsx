@@ -1,5 +1,5 @@
 import { Button,  InputAdornment, TextField } from "@mui/material";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import Iconify from "../../components/iconify/Iconify";
 
 // UserTextBox.propTypes = {
@@ -18,6 +18,7 @@ function UserTextBox({
   placeholder,
   widthSize,
 }) {
+  console.log(filterName);
     // default
     if(widthSize===undefined) {
         widthSize = 240;
@@ -28,16 +29,24 @@ function UserTextBox({
     if(placeholder === undefined) {
       placeholder = ''
     }
-    const change = (e) => {
+    // const change = useCallback(e) => {
+    //   onFilterName(e.target.value);
+    // }
+
+    const onChange = useCallback(
+    e => {
       onFilterName(e.target.value);
-    }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filterName]
+  );
 
     return(
     <>
       <TextField
         fullWidth
         value={filterName}
-        onChange={change}
+        onChange={(onChange)}
         placeholder={placeholder}
         sx={{
           maxWidth: { sm: widthSize },

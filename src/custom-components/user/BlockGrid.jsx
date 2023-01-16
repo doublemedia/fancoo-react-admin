@@ -1,6 +1,6 @@
 import { Box, Button, LinearProgress, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import React, { Suspense, useMemo, useState } from "react";
+import React, { memo, Suspense, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import CustomPagination from "src/custom-components/common/CustomPagination";
 // import ReportDialog from "src/custom-components/dialog/report/ReportDialog";
@@ -9,7 +9,7 @@ import CustomGridHeader from "../common/CustomGridHeader";
 const ReportDialog = React.lazy(()=> import('src/custom-components/dialog/report/ReportDialog'));
 const MemoDialog = React.lazy(()=> import('src/custom-components/dialog/report/MemoDialog'));
 
-export default function BlockGrid({
+function BlockGrid ({
     data,
     loadingFlg,
     limit,
@@ -17,7 +17,7 @@ export default function BlockGrid({
     offset,
     setOffset,
 }) {
-
+    
     const [open, setOpen] = useState(false);
     const [memoOpen , setMemoOpen] = useState(false);
     const [msg, setMsg] = useState('');
@@ -155,3 +155,6 @@ export default function BlockGrid({
         </>
     )
 }
+
+
+export default memo(BlockGrid);

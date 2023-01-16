@@ -140,29 +140,29 @@ function Block() {
     setSearchName('');
   };
   // 클릭이벤트
-  const handleSearchRole = (e) => {
-    setSearchRole({value:e.target.value, name: e.target.name});
-  };
+  // const handleSearchRole = (e) => {
+  //   setSearchRole({value:e.target.value, name: e.target.name});
+  // };
 
-  const handleDateRole = (e) => {
-    setDateRole({value:e.target.value, name: e.target.name});
-  };
+  // const handleDateRole = (e) => {
+  //   setDateRole({value:e.target.value, name: e.target.name});
+  // };
 
-  const handleAdultRole = (e) => {
-    setReportRole({value: e.target.value, name: e.target.name});
-  }
+  // const handleAdultRole = (e) => {
+  //   setReportRole({value: e.target.value, name: e.target.name});
+  // }
 
-  const handleStatusRole = (e) => {
-    setPeriodRole({value: e.target.value, name: e.target.name});
-  }
+  // const handleStatusRole = (e) => {
+  //   setPeriodRole({value: e.target.value, name: e.target.name});
+  // }
 
-  const handleAdjustRole = (e) => {
-    setAdjustRole({value: e.target.value, name: e.target.name});
-  }
+  // const handleAdjustRole = (e) => {
+  //   setAdjustRole({value: e.target.value, name: e.target.name});
+  // }
 
-  const handleSortRole = (e) => {
-    setSortRole({value: e.target.value, name: e.target.name});
-  }
+  // const handleSortRole = (e) => {
+  //   setSortRole({value: e.target.value, name: e.target.name});
+  // }
 
   const [searchName1, setSearchName1] = useState('');
 
@@ -226,7 +226,7 @@ function Block() {
                 widthSize={150}
                 filterRole={searchRole}
                 optionsRole={searchItems}
-                onFilterRole={handleSearchRole}
+                onFilterRole={setSearchRole}
             />
             <UserTextBox
                 searchIcon
@@ -250,7 +250,7 @@ function Block() {
                 widthSize={150}
                 filterRole={dateRole}
                 optionsRole={dateItems}
-                onFilterRole={handleDateRole}
+                onFilterRole={setDateRole}
             />
             <LocalizationProvider
               dateAdapter={AdapterDayjs}
@@ -276,28 +276,28 @@ function Block() {
                 widthSize={100}
                 filterRole={reportRole}
                 optionsRole={reportItems}
-                onFilterRole={handleAdultRole}
+                onFilterRole={setReportRole}
             />
             <UserSelectBox
                 labelText='기간'
                 widthSize={100}
                 filterRole={periodRole}
                 optionsRole={periodItems}
-                onFilterRole={handleStatusRole}
+                onFilterRole={setPeriodRole}
             />
             <UserSelectBox
                 labelText='적용대상'
                 widthSize={150}
                 filterRole={adjustRole}
                 optionsRole={adjustItems}
-                onFilterRole={handleAdjustRole}
+                onFilterRole={setAdjustRole}
             />
             <UserSelectBox
                 labelText='제제일'
                 widthSize={150}
                 filterRole={sortRole}
                 optionsRole={sortItems}
-                onFilterRole={handleSortRole}
+                onFilterRole={setSortRole}
             />
             <Button sx={{fontSize: 10}} size="large" color="error"variant="contained" onClick={()=> initBtn()}>리셋</Button>
             <Button sx={{fontSize: 10}} size="large" color="success" variant="contained" onClick={()=> searchBtn()}>검색</Button>

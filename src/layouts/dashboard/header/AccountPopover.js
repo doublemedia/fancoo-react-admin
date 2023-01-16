@@ -38,7 +38,7 @@ export default function AccountPopover() {
   
   const [user] = useRecoilState(userAtom);
   const [mounted, setMounted] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
+  // const { enqueueSnackbar } = useSnackbar();
   // const { refetch } = userInfo();
   const User = userInfo();
   const [openPopover, setOpenPopover] = useState(null);
@@ -102,7 +102,7 @@ export default function AccountPopover() {
       navigate(PATH_AUTH.login);
     } catch (error) {
       console.error(error);
-      enqueueSnackbar('Unable to logout!', { variant: 'error' });
+    //  enqueueSnackbar('Unable to logout!', { variant: 'error' });
     }
   };
 
