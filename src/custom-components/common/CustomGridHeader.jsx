@@ -1,9 +1,10 @@
 import { Grid, Typography } from "@mui/material";
+import { memo } from "react";
 import { PAGE_CNT_LIST } from "src/config/pageSetting";
-import UserSelectBox from "./UserSelectBox";
+import GridSelectBox from "./GridSelectBox";
 
 
-export default function CustomGridHeader ({
+function CustomGridHeader ({
     limit,
     setLimit,
     totalCnt,
@@ -12,29 +13,11 @@ export default function CustomGridHeader ({
 }) {
     // 데이터건수 정렬
     const handlePagingRole = (e) => {
-        console.log(e.target);
         setLimit({value:e.target.value, name: e.target.name});
         setOffset(offset);
     };
 
     return(
-        // <Stack
-        //     spacing={4}
-        //     alignItems="left"
-        //      direction="row" justifyContent="end"
-        //     sx={{ px: 2.5, py: 1 }}  >
-        //     <Typography variant="subtitle2" mt={1}>
-        //         총 {totalCnt}
-        //     </Typography>
-                
-            // <UserSelectBox
-            //     size='small'
-            //     widthSize={100}
-            //     filterRole={limit}
-            //     optionsRole={PAGE_CNT_LIST}
-            //     onFilterRole={handlePagingRole}
-            // />
-        // </Stack>
         <Grid container spacing={7} justifyContent="space-between" alignItems="center" >
             <Grid item xs={2} p={1} >
                 <Typography variant="subtitle2" mt={1}>
@@ -42,7 +25,7 @@ export default function CustomGridHeader ({
                 </Typography>
             </Grid>
             <Grid item xs={1} p={1} justifyContent="flex-end">
-                    <UserSelectBox
+                    <GridSelectBox
                         size='small'
                         widthSize={140}
                         filterRole={limit}
@@ -53,3 +36,5 @@ export default function CustomGridHeader ({
         </Grid>
     )
 }
+
+export default memo(CustomGridHeader);

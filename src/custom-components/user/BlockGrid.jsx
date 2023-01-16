@@ -1,6 +1,6 @@
 import { Box, Button, LinearProgress, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import React, { memo, Suspense, useMemo, useState } from "react";
+import React, { memo, Suspense, useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import CustomPagination from "src/custom-components/common/CustomPagination";
 // import ReportDialog from "src/custom-components/dialog/report/ReportDialog";
@@ -23,16 +23,16 @@ function BlockGrid ({
     const [msg, setMsg] = useState('');
 
     // 제제 내역이동
-    const reportEvent = (p) => {
+    const reportEvent = useCallback(p => {
         const reportBtn = () => {
             setOpen(true);
         }
         return(
             <Button size="small" color="success"variant="contained" onClick={()=> reportBtn()}>관리</Button>
         )
-    }
+    },[setOpen]);
 
-    const memoEvent = (p) => {
+    const memoEvent = useCallback(p => {
         const memoBtn = () => {
             setMsg(p.row.memo);
             setMemoOpen(true);
@@ -40,7 +40,7 @@ function BlockGrid ({
         return (
             <Button size="small" color="success" variant="contained" onClick={()=> memoBtn()}>보기</Button>
         )
-    }
+    },[setMsg,setMemoOpen]);
 
     const navigate = useNavigate();
 

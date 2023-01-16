@@ -49,17 +49,6 @@ export function ReportDialog ({
         {value:'1' ,name: '선택'}
     ]),[]);
 
-    const handleStatusRole = (e) => {
-        setStatueRole({value: e.target.value, name: e.target.name});
-    }
-
-    const handleCategoryRole = (e) => {
-        setCategoryRole({value: e.target.value, name: e.target.name});
-    }
-
-    const handleViolationRole = (e) => {
-        setViolationRole({value: e.target.value, name: e.target.name});
-    }
 
     return(
         <Dialog fullWidth maxWidth="md" open={open} onClose={dialogClose}>
@@ -98,7 +87,7 @@ export function ReportDialog ({
                             variant="standard"
                             filterRole={statusRole}
                             optionsRole={statusItems}
-                            onFilterRole={handleStatusRole}
+                            onFilterRole={setStatueRole}
                             />
                     </Grid>
                     <Grid item xs={2} p={2} sx={{...reportStyleTitle}}>
@@ -116,7 +105,7 @@ export function ReportDialog ({
                             variant="standard"
                             filterRole={categoryRole}
                             optionsRole={categoryItems}
-                            onFilterRole={handleCategoryRole}
+                            onFilterRole={setCategoryRole}
                             disabled
                             />
                     </Grid>
@@ -129,7 +118,7 @@ export function ReportDialog ({
                             variant="standard"
                             filterRole={violationRole}
                             optionsRole={violationItems}
-                            onFilterRole={handleViolationRole}
+                            onFilterRole={setViolationRole}
                             disabled
                             />
                     </Grid>
