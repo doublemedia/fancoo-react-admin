@@ -18,7 +18,6 @@ function UserTextBox({
   placeholder,
   widthSize,
 }) {
-  console.log(filterName);
     // default
     if(widthSize===undefined) {
         widthSize = 240;

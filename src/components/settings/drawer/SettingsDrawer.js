@@ -14,7 +14,6 @@ import { defaultSettings } from '../config-setting';
 import { useSettingsContext } from '../SettingsContext';
 import Block from './Block';
 import BadgeDot from './BadgeDot';
-import ToggleButton from './ToggleButton';
 import ModeOptions from './ModeOptions';
 import LayoutOptions from './LayoutOptions';
 import StretchOptions from './StretchOptions';
@@ -59,10 +58,7 @@ export default function SettingsDrawer() {
     themeColorPresets !== defaultSettings.themeColorPresets;
 
   return (
-    <>
-      {!open && <ToggleButton open={open} notDefault={notDefault} onToggle={handleToggle} />}
-
-      <Drawer
+    <Drawer
         anchor="right"
         open={open}
         onClose={handleClose}
@@ -134,6 +130,5 @@ export default function SettingsDrawer() {
           <FullScreenOptions />
         </Box>
       </Drawer>
-    </>
   );
 }

@@ -15,7 +15,6 @@ import Scrollbar from '../../../components/scrollbar';
 import { NavSectionVertical } from '../../../components/nav-section';
 //
 import NavDocs from './NavDocs';
-import NavToggleButton from './NavToggleButton';
 import navConfig from './config-navigation';
 // ----------------------------------------------------------------------
 
@@ -76,7 +75,6 @@ export default function NavVertical({ openNav, onCloseNav }) {
         width: { lg: NAV.W_DASHBOARD },
       }}
     >
-      <NavToggleButton />
 
       {isDesktop ? (
         <Drawer

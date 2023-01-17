@@ -3,3 +3,7 @@ export const USERLIST_KEY = 'USERLIST_KEY';
 export const SUBSCRIBE_KEY = 'SUBSCRIBE_KEY';
 
 export const BLOCKLIST_KEY ='BLOCKLIST_KEY';
+
+export const BLOCK_CODE_KEY_1 = 'BLOCK_CODE_KEY_1'
+
+export const BLOCK_CODE_KEY_2 = 'BLOCK_CODE_KEY_2'

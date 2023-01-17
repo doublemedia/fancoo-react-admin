@@ -12,7 +12,6 @@ function UserSelectBox({
   size,
   disabled
 }) {
-  console.log('dfdf123',filterRole);
     // default
     if(widthSize===undefined) {
         widthSize = 240;
@@ -29,7 +28,13 @@ function UserSelectBox({
 
     const onChange = useCallback(
     e => {
-      onFilterRole({value:e.target.value, name: e.target.name});
+      let text = '';
+      optionsRole.forEach(element => {
+        if(e.target.value === element.value) {
+          text = element.name;
+        }
+      });
+      onFilterRole({value:e.target.value, name: text});
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [filterRole]
@@ -69,6 +74,7 @@ function UserSelectBox({
         </MenuItem>
         {optionsRole.map((option) => (
           <MenuItem
+            name={option.name}
             value={option.value}
             key={option.value}
             sx={{

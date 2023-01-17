@@ -19,7 +19,6 @@ import instance from 'src/api/api';
 import BlockGrid from 'src/custom-components/user/BlockGrid';
 import { useRecoilValue } from 'recoil';
 import searchTextAtom from 'src/store/searchText/searchTextAtom';
-import UserTextBox2 from 'src/custom-components/common/UserTextBox2';
 // ----------------------------------------------------------------------
 
 let params = {
@@ -131,40 +130,10 @@ function Block() {
 
   // clear버튼 표시
   const isFiltered = searchName !== '' ;
-  // 입력이벤트
-  // const handleSearchName = (e) => {
-  //   setSearchName(e.target.value);
-  // };
 
   const handleResetFilter = () => {
     setSearchName('');
   };
-  // 클릭이벤트
-  // const handleSearchRole = (e) => {
-  //   setSearchRole({value:e.target.value, name: e.target.name});
-  // };
-
-  // const handleDateRole = (e) => {
-  //   setDateRole({value:e.target.value, name: e.target.name});
-  // };
-
-  // const handleAdultRole = (e) => {
-  //   setReportRole({value: e.target.value, name: e.target.name});
-  // }
-
-  // const handleStatusRole = (e) => {
-  //   setPeriodRole({value: e.target.value, name: e.target.name});
-  // }
-
-  // const handleAdjustRole = (e) => {
-  //   setAdjustRole({value: e.target.value, name: e.target.name});
-  // }
-
-  // const handleSortRole = (e) => {
-  //   setSortRole({value: e.target.value, name: e.target.name});
-  // }
-
-  const [searchName1, setSearchName1] = useState('');
 
   // 초기화 이벤트
   const initBtn = () => {
@@ -237,13 +206,6 @@ function Block() {
                 onFilterName={setSearchName}
                 // onFilterName={handleSearchName}
                 onResetFilter={handleResetFilter}
-             />
-
-             <UserTextBox2
-                placeholder="검색어입력2"
-                widthSize={250}
-                filterName={searchName1}
-                onFilterName={setSearchName1}
              />
             <UserSelectBox
                 labelText='일자'
