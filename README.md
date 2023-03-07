@@ -1,3 +1,4 @@
+## 리포지토리 제거 검토 / 권록헌 매니저 테스트 코드
 ## USING YARN (Recommend)
 
 - yarn install
